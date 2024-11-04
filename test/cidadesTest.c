@@ -1,14 +1,13 @@
+#include "cidadestest.h"
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include "cidades.h"
-
 //declarações
 #define MAX_LINHA 256  // Definindo um tamanho máximo para cada linha lida do arquivo
 double VizinhancaReal;
-
+//saber como fazer para evitar chamada repetida do arquivo
 
 Estrada *getEstrada(const char *nomeArquivo) 
 {
@@ -20,7 +19,7 @@ Estrada *getEstrada(const char *nomeArquivo)
         printf("Erro: Não foi possível abrir o arquivo.\n");
         return NULL;
     }
-    //printf("Abertura de arquivo bem sucedida.\n\n");
+    printf("Abertura de arquivo bem sucedida.\n\n");
 
     Estrada *estrada = (Estrada *) malloc(sizeof(Estrada)); 
     if (!estrada) 
@@ -29,7 +28,7 @@ Estrada *getEstrada(const char *nomeArquivo)
         fclose(arq);
         return NULL;
     }
-    //printf("Alocação de memória para estrada bem sucedida.\n\n");
+    printf("Alocação de memória para estrada bem sucedida.\n\n");
 
     do {
         if (!fgets(linha, MAX_LINHA, arq)) 
@@ -132,16 +131,16 @@ double calcularMenorVizinhanca(const char *nomeArquivo)
         if (vizinhanca < menorVizinhanca) 
         {
             menorVizinhanca = vizinhanca;
-            //printf("Esse era o valor de depois do calculo: %lf.\n", menorVizinhanca);
+            printf("Esse era o valor de depois do calculo: %lf.\n", menorVizinhanca);
         }
     }
     VizinhancaReal = fabs(vizinhancaFora);
-    //printf("E esse é o valor que deve ser mandado: %lf\n\n", VizinhancaReal);
+    printf("E esse é o valor que deve ser mandado: %lf\n\n", VizinhancaReal);
 
     free(estrada->C);
     free(estrada);
 
-    //printf("Calculo de menor vizinhança concluído com sucesso.\n\n");
+    printf("Calculo de menor vizinhança concluído com sucesso.\n\n");
 
     return VizinhancaReal; //menorVizinhanca
 }
