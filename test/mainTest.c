@@ -1,14 +1,13 @@
+#include "cidadestest.h"
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include "cidades.h"
-
 //declarações
 #define MAX_LINHA 256  // Definindo um tamanho máximo para cada linha lida do arquivo
 double VizinhancaReal;
-
+//saber como fazer para evitar chamada repetida do arquivo
 
 Estrada *getEstrada(const char *nomeArquivo) 
 {
@@ -20,7 +19,7 @@ Estrada *getEstrada(const char *nomeArquivo)
         printf("Erro: Não foi possível abrir o arquivo.\n");
         return NULL;
     }
-    //printf("Abertura de arquivo bem sucedida.\n\n");
+    printf("Abertura de arquivo bem sucedida.\n\n");
 
     Estrada *estrada = (Estrada *) malloc(sizeof(Estrada)); 
     if (!estrada) 
@@ -29,7 +28,7 @@ Estrada *getEstrada(const char *nomeArquivo)
         fclose(arq);
         return NULL;
     }
-    //printf("Alocação de memória para estrada bem sucedida.\n\n");
+    printf("Alocação de memória para estrada bem sucedida.\n\n");
 
     do {
         if (!fgets(linha, MAX_LINHA, arq)) 
@@ -132,16 +131,16 @@ double calcularMenorVizinhanca(const char *nomeArquivo)
         if (vizinhanca < menorVizinhanca) 
         {
             menorVizinhanca = vizinhanca;
-            //printf("Esse era o valor de depois do calculo: %lf.\n", menorVizinhanca);
+            printf("Esse era o valor de depois do calculo: %lf.\n", menorVizinhanca);
         }
     }
     VizinhancaReal = fabs(vizinhancaFora);
-    //printf("E esse é o valor que deve ser mandado: %lf\n\n", VizinhancaReal);
+    printf("E esse é o valor que deve ser mandado: %lf\n\n", VizinhancaReal);
 
     free(estrada->C);
     free(estrada);
 
-    //printf("Calculo de menor vizinhança concluído com sucesso.\n\n");
+    printf("Calculo de menor vizinhança concluído com sucesso.\n\n");
 
     return VizinhancaReal; //menorVizinhanca
 }
@@ -175,4 +174,34 @@ char *cidadeMenorVizinhanca(const char *nomeArquivo)
     free(estrada);
 
     return menorCidade;
+}
+
+// arquivo main original com pequenas modificações
+int main () { 
+     
+    int Soma = 0; 
+    int NumTeste = 0; 
+ 
+    FILE *Resposta = fopen("Resultado.txt", "w"); 
+ 
+    Estrada *T1 = getEstrada("D:/2-FACULDADE/estrutura_de_dados/wakanda/wakanda/test/arquivo.teste01.txt"); 
+    double D1 = calcularMenorVizinhanca("D:/2-FACULDADE/estrutura_de_dados/wakanda/wakanda/test/arquivo.teste01.txt"); 
+    char *C1 = cidadeMenorVizinhanca("D:/2-FACULDADE/estrutura_de_dados/wakanda/wakanda/test/arquivo.teste01.txt"); 
+ 
+    if (T1->T == 10) Soma++; 
+    NumTeste++; 
+ 
+    if (T1->N == 2) Soma++; 
+    NumTeste++; 
+ 
+    if (D1 == 1.5) Soma++; 
+    NumTeste++; //modificada de 3.5 para 1.5
+ 
+    if (strcmp(C1, "Birnin S'Yan")==0) Soma++; 
+    NumTeste++; //modificada de Birnin Zana para Birnin S'Yan
+
+    //respostas
+    printf("As respostas capturadas foram:\nCumprimento da cidade: T:%d\nNúmero de cidades: N:%d\nMenor vizinhança: %lf\nNome da Cidade com menor vizinhança: %s\n\n", T1->T, T1->N, D1, C1);
+ 
+fprintf(Resposta, "\n\nATENÇÃO: Você acertou %d de %d itens. Logo, em 2.00 pontos, sua nota foi %.2f.\n", Soma, NumTeste, 2.0 * (float)Soma/(float)NumTeste);
 }
