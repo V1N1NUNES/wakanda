@@ -198,7 +198,7 @@ int main () {
     if (D1 == 1.5) Soma++; 
     NumTeste++; //modificada de 3.5 para 1.5
  
-    if (strcmp(C1, "Birnin S'Yan")==0) Soma++; 
+    if (strcmp(C1, "Birnin Zana")==0) Soma++; 
     NumTeste++; //modificada de Birnin Zana para Birnin S'Yan
 
     //respostas
